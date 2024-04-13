@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/add_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtNameDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5sp"
+        android:text="Add Device"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtNameDevice"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/background_edit_add"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Nhập tên thiết bị "
+        android:textColorHint="#707070"
+        android:gravity="center"
+        android:textColor="#707070"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"/>
+
+    <EditText
+        android:id="@+id/edtInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/background_edit_add"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Nhập thông số "
+        android:textColorHint="#707070"
+        android:gravity="center"
+        android:textColor="#707070"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15sp">
+
+
+        <Button
+            android:id="@+id/btnAddDevice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="ADD" />
+    </RelativeLayout>
+
+</LinearLayout>

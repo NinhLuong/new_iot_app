@@ -1,0 +1,67 @@
+<resources>
+    <string-array name="device_types_array">
+        <item>Light</item>
+        <item>Air Condition</item>
+        <item>Fan</item>
+    </string-array>
+    <string name="app_name">Storage management</string>
+    <string name="action_home">Home</string>
+    <string name="enter_otp_here">Enter your OTP here</string>
+    <string name="action_web">Web</string>
+    <string name="action_account">Account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading…</string>
+    <string name="no_internet_connection">No internet connection!</string>
+    <string name="lbl_continue">Continue</string>
+    <string name="lbl_email">Email:</string>
+    <string name="lbl_log_in2">Log in</string>
+    <string name="lbl_logout">Logout</string>
+    <string name="msg_get_you_smart_d">Get you smart devices in one place and manage all of these with a few taps.</string>
+    <string name="msg_don_t_have_an_a">Don\u2019t have an account? Sign up</string>
+    <string name="msg_password_change">Password changed</string>
+    <string name="lbl_back_to_login">Back to login</string>
+    <string name="msg_we_ve_sent_an_s2">We\u2019ve sent an SMS with an activation code to your phone </string>
+    <string name="msg_we_ve_sent_an_s">We\u2019ve sent an SMS with an activation code to your phone +84 0824451334</string>
+    <string name="lbl_info">Info</string>
+    <string name="lbl_s_i_n_tho_i">Số điện thoại</string>
+    <string name="msg_don_t_have_an_a2">Don\u2019t have an account?</string>
+    <string name="lbl_resend">Resend OTP in 60 seconds</string>
+    <string name="lbl_reset_password">Reset password</string>
+    <string name="msg_please_fill_you">Please fill your detail to access your account.</string>
+    <string name="lbl_home">Home</string>
+    <string name="lbl_drax_gamil_com">drax@gamil.com</string>
+    <string name="msg_already_have_an">Already have an account?  Login</string>
+    <string name="lbl_login">Login</string>
+    <string name="lbl_new_password">New password</string>
+    <string name="lbl_explore_the_app">Explore the app</string>
+    <string name="msg_must_be_8_chara">Must be at least 8 characters</string>
+    <string name="msg_confirm_new_pas">Confirm new password</string>
+    <string name="msg_already_have_an2">Already have an account? </string>
+    <string name="msg_already_have_an3">Already have an account? Log in</string>
+    <string name="msg_your_password_h">Your password has been changed succesfully</string>
+    <string name="lbl_change_password">Change password   </string>
+    <string name="lbl_verify">Verify</string>
+    <string name="msg_i_accept_the_te">I accept the terms and privacy policy</string>
+    <string name="msg_i_didn_t_receiv">I didn\u2019t receive a code!</string>
+    <string name="lbl_enter_code">Enter code</string>
+    <string name="msg_wrong_code_ple">Wrong code, please try again</string>
+    <string name="msg_33_2_94_27_84"> +33 2 94 27 84 11</string>
+    <string name="lbl_sign_up">Sign up</string>
+    <string name="msg_33_2_94_27_842">+33 2 94 27 84 11</string>
+    <string name="lbl_password">Password</string>
+    <string name="msg_please_type_som">Please type something you\u2019ll remember</string>
+    <string name="lbl_0123456789">0123456789</string>
+    <string name="lbl_or">OR</string>
+    <string name="msg_forgot_password">Forgot password?</string>
+    <string name="lbl_hello">hello</string>
+    <string name="lbl_web">Web</string>
+    <string name="lbl_username">Username</string>
+    <string name="lbl_repeat_password">repeat password</string>
+    <string name="lbl_drax_xaxa">Drax XaXa</string>
+    <string name="lbl_account">Account</string>
+    <string name="msg_please_enter_valid_phone_nu">Please enter valid phone number</string>
+    <string name="msg_please_enter_valid_pa">Please enter valid password</string>
+    <string name="otp_view">OTP View</string>
+
+</resources>
