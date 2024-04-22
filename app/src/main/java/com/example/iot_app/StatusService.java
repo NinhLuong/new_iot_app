@@ -35,7 +35,7 @@ public class StatusService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        sosRef = FirebaseDatabase.getInstance().getReference("rooms").child("Kho Linh Xuan").child("SOS");
+        sosRef = FirebaseDatabase.getInstance().getReference("robot").child("SOS");
         Log.d("đã connect với Service", String.valueOf(sosRef));
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Uri notificationSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -80,7 +80,7 @@ public class StatusService extends Service {
                     );
                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), notificationChannelId)
                             .setContentTitle("SOS Status")
-                            .setContentText("The temperature is exceeding the allowable threshold")
+                            .setContentText("The gas is exceeding the allowable threshold")
                             .setSmallIcon(R.drawable.error)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setContentIntent(pendingIntent);
@@ -90,7 +90,7 @@ public class StatusService extends Service {
                          ringtone.play();
                      }
                 } else {
-                    notificationBuilder.setContentText("The temperature is within the allowable range");
+                    notificationBuilder.setContentText("The gas is within the allowable range");
                     notificationBuilder.setSmallIcon(R.drawable.cold_storage);
                     notificationManager.notify(sosStatusNotificationId, notificationBuilder.build());
 
