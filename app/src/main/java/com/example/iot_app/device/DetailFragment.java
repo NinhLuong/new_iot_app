@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iot_app.R;
-import com.example.iot_app.SharedViewModel;
+//import com.example.iot_app.SharedViewModel;
 import com.example.iot_app.home_page.Room;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -43,12 +43,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DetailFragment extends Fragment {
     private RecyclerView rcvRoom;
     private DeviceAdapter deviceAdapter;
-    private SharedViewModel viewModel;
+//    private SharedViewModel viewModel;
     private ArrayList<Device> listDevice;
     private String device_type;
     private TextView txtTemp, txtHum;
@@ -76,16 +77,16 @@ public class DetailFragment extends Fragment {
         Button btnEdit = dialog.findViewById(R.id.btnEdit);
         int index = getArguments().getInt("index");
         Log.d("indexDetail", String.valueOf(index));
-        String originalName = viewModel.getRooms().getValue().get(index).getRoom();
-        edtNameRoom.setText(originalName);
+        String roomName = getArguments().getString("roomName");
+        edtNameRoom.setText(roomName);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newName = edtNameRoom.getText().toString();
                 if (!newName.isEmpty()) {
-                    Room room = viewModel.getRooms().getValue().get(index);
-                    room.setRoom(newName);
-                    viewModel.getRooms().getValue().set(index, room);
+//                    Room room = viewModel.getRooms().getValue().get(index);
+//                    room.setRoom(newName);
+//                    viewModel.getRooms().getValue().set(index, room);
                     ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(newName);
                     dialog.dismiss();
                 } else {
@@ -161,7 +162,7 @@ public class DetailFragment extends Fragment {
             }
         });
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
 //        viewModel.loadData(getContext());
         // Get an instance of SharedViewModel associated with this activity.
         /*viewModel.getRoomArea().observe(getViewLifecycleOwner(), new Observer<List<Device>>() {
@@ -174,12 +175,12 @@ public class DetailFragment extends Fragment {
                 // Notify 'roomAdapter' that underlying data has changed and it should refresh itself.
             }
         });*/
-
-        listDevice = viewModel.getRooms().getValue().get(indexArea).getDevices();
+        /*viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        listDevice = viewModel.getRooms().getValue().get(indexArea).getDevices();*/
 
         if (listDevice == null) {
             listDevice = new ArrayList<>();
-            viewModel.getRooms().getValue().get(indexArea).setDevices((ArrayList<Device>) listDevice);
+//            viewModel.getRooms().getValue().get(indexArea).setDevices((ArrayList<Device>) listDevice);
         }
         FloatingActionButton btnAddDevice = view.findViewById(R.id.btnAddDevice);
         btnAddDevice.setOnClickListener(new View.OnClickListener() {
@@ -220,11 +221,42 @@ public class DetailFragment extends Fragment {
                                     newDevice = new Device(R.drawable.led_off, name_device, "yellow", false, 100,"Light", roomName);
                                     break;
                             }
+
+                            // Get the Room object from Firebase
+                            myRef.child(roomName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // Get the Room object from the snapshot
+                                    Room room = dataSnapshot.getValue(Room.class);
+// Check if the hmdevices HashMap is null
+                                    if (room.getHmdevices() == null) {
+                                        // If it's null, initialize it
+                                        room.setHmdevices(new HashMap<>());
+                                    }
+
+                                    // Add the new device to the hmdevices HashMap of the Room object
+                                    room.getHmdevices().put(newDevice.getDevice(), newDevice);
+
+                                    // Save the updated Room object back to Firebase
+                                    myRef.child(roomName).setValue(room);
+                                    deviceAdapter.addDevice(newDevice);
+                                    deviceAdapter.notifyDataSetChanged();
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Handle error
+                                }
+                            });
+
 //
                             // Create a new Device object with default image, name from 'edtNameRoom', and info from 'edtInfo'.
 //                            viewModel.addRoomArea(newDevice);
-                            viewModel.addDeviceToRoom(indexArea, newDevice);
-                            myRef.child(roomName).child("devices").child(name_device).setValue(newDevice);
+//                            viewModel.addDeviceToRoom(indexArea, newDevice);
+
+//                            myRef.child(roomName).child("devices").child(name_device).setValue(newDevice);
+
                             /*myRef.child(roomName).child("devices").child(name_device).child("Switch").setValue("false");
                             myRef.child(roomName).child("devices").child(name_device).child("Detail").setValue("");*/
 //                            deviceAdapter = new DeviceAdapter(listDevice, device_type );
@@ -245,49 +277,32 @@ public class DetailFragment extends Fragment {
 
             }
         });
-        /*myRef.child(roomName).child("devices").addValueEventListener(new ValueEventListener() {
+        myRef.child(roomName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                listDevice.clear();
-                for (DataSnapshot deviceSnapshot : dataSnapshot.getChildren()) {
-                    Device device = deviceSnapshot.getValue(Device.class);
-                    if (device.isSwithStatus()) {
-                        switch (device.getCategory()){
-                            case "Fan":
-                                device.setIdDevice(R.drawable.ic_fan_on);
-                                break;
-                            case "Air Condition":
-                                device.setIdDevice(R.drawable.ac_on);
-                                break;
-                            default:
-                                device.setIdDevice(R.drawable.led_on);
-                                break;
-                        }
-                    } else {
-                        switch (device.getCategory()){
-                            case "Fan":
-                                device.setIdDevice(R.drawable.ic_fan_off);
-                                break;
-                            case "Air Condition":
-                                device.setIdDevice(R.drawable.ac_off);
-                                break;
-                            default:
-                                device.setIdDevice(R.drawable.led_off);
-                                break;
-                        }
+                Room room = dataSnapshot.getValue(Room.class);
+                if (room != null) {
+                    HashMap<String, Device> hmdevices = room.getHmdevices();
+                    if (hmdevices == null) {
+                        hmdevices = new HashMap<>();
                     }
-                    listDevice.add(device);
+                    DeviceAdapter deviceAdapter = new DeviceAdapter(new ArrayList<>(hmdevices.values()));
+                    deviceAdapter.notifyDataSetChanged();
+                    // rest of your code
+                    rcvRoom.setAdapter(deviceAdapter);
                 }
-                deviceAdapter.notifyDataSetChanged();
+
+
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle error
             }
-        });*/
+        });
+
         deviceAdapter = new DeviceAdapter(listDevice);
+        deviceAdapter.notifyDataSetChanged();
         rcvRoom.setAdapter(deviceAdapter);
 
         return view;

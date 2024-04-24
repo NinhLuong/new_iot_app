@@ -18,7 +18,7 @@ public class Device {
 
 // Fan device
 // Lamp device
-    public Device(int idDevice, String device, String detail, boolean swithStatus,int  intensity, String category, String nameRoom) {
+    public Device(int idDevice, String device, String detail, boolean swithStatus,int intensity, String category, String nameRoom) {
         this.idDevice = idDevice;
         this.device = device;
         this.detail = detail;

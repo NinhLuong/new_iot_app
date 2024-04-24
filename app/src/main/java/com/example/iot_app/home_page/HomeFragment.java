@@ -1,5 +1,6 @@
 package com.example.iot_app.home_page;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.Manifest;
@@ -38,8 +39,9 @@ import android.widget.Toast;
 
 import com.example.iot_app.MainActivity;
 import com.example.iot_app.R;
-import com.example.iot_app.SharedViewModel;
+//import com.example.iot_app.SharedViewModel;
 import com.example.iot_app.StatusService;
+import com.example.iot_app.device.Device;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,6 +59,7 @@ import org.json.JSONObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,10 +70,12 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcvData;
     private RoomAdapter roomAdapter;
     private ArrayList<Room> listRoom;
+    private ArrayList<Device>  listDevice;
+    private HashMap<String, Device> hmDevice;
 
     private MainActivity mainActivity;
 
-    private SharedViewModel viewModel;
+//    private SharedViewModel viewModel;
     private TextView userName;
 
     final String OpenWeatherAPI = "40f1a0e03d3137aa8d8d47e1e37ca0dc";
@@ -171,14 +176,14 @@ public class HomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         rcvData.setLayoutManager(gridLayoutManager);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        /*viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         viewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<ArrayList<Room>>() {
             @Override
             public void onChanged(ArrayList<Room> rooms) {
                 roomAdapter.setRooms(rooms);
                 roomAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
 
         FloatingActionButton btnAddRoom = view.findViewById(R.id.btnAddRoom);
         btnAddRoom.setOnClickListener(new View.OnClickListener() {
@@ -204,12 +209,23 @@ public class HomeFragment extends Fragment {
                             Log.d("longitude firebase", longitude);
 
                             Room newRoom = new Room(R.drawable.cold_storage, name , "0 device");
-                            myRef.child(name).child("Temp").setValue("null");
+                            /*myRef.child(name).child("Temp").setValue("null");
                             myRef.child(name).child("Hum").setValue("null");
-                            myRef.child(name).child("Gas").setValue("false");
+                            myRef.child(name).child("Gas").setValue("null");*/
+//                            Device fan1 = new Device(R.drawable.ic_fan_off, "fan 1", "Medium", false,100,"Fan", name);
+//                            Device fan2 = new Device(R.drawable.ic_fan_off, "fan 2", "Medium", false,100,"Fan", name);
+                            hmDevice = new HashMap<>();
+//                            listDevice.put("fan 1", fan1);
+//                            listDevice.put("fan 2", fan2);
+                            listDevice = new ArrayList<>();
+                            Room newRoom1 = new Room(R.drawable.cold_storage, name , "0 device", "null", "null","null", hmDevice);
+
+                            myRef.child(name).setValue(newRoom1);
+                            /*myRef.child(name).child("devices").child(fan1.getDevice()).setValue(fan1);
+                            myRef.child(name).child("devices").child(fan2.getDevice()).setValue(fan2);*/
 
 
-                            viewModel.addRoom(newRoom);
+//                            viewModel.addRoom(newRoom);
                             dialog.dismiss();
                         }
                         else {
@@ -223,7 +239,30 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        listRoom = new ArrayList<>();
+        myRef.child(name).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listRoom.clear();
+                for (DataSnapshot roomSnapshot : dataSnapshot.getChildren()) {
+
+                    Room room = roomSnapshot.getValue(Room.class);
+                    listRoom.add(room);
+                }
+                roomAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
         roomAdapter = new RoomAdapter(listRoom);
+
+        roomAdapter.notifyDataSetChanged();
         rcvData.setAdapter(roomAdapter);
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
 

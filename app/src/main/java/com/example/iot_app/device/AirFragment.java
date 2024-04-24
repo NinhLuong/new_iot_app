@@ -64,10 +64,10 @@ public class AirFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");
-        DatabaseReference switchStatus = myRef.child(roomName).child("devices").child(deviceName).child("swithStatus");
-        DatabaseReference intensityRef = myRef.child(roomName).child("devices").child(deviceName).child("detail");
-        DatabaseReference modeRef = myRef.child(roomName).child("devices").child(deviceName).child("mode");
-        DatabaseReference autoRef = myRef.child(roomName).child("devices").child(deviceName).child("autoStatus");
+        DatabaseReference switchStatus = myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus");
+        DatabaseReference intensityRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("detail");
+        DatabaseReference modeRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("mode");
+        DatabaseReference autoRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("autoStatus");
 
         RadioButton btnHot = rootView.findViewById(R.id.btnHot);
         RadioButton btnCold = rootView.findViewById(R.id.btnCold);
@@ -107,7 +107,7 @@ public class AirFragment extends Fragment {
         switchAir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                myRef.child(roomName).child("devices").child(deviceName).child("swithStatus").setValue(isChecked);
+                myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus").setValue(isChecked);
 
             }
         });
@@ -134,7 +134,7 @@ public class AirFragment extends Fragment {
         switchAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                myRef.child(roomName).child("devices").child(deviceName).child("autoStatus").setValue(isChecked);
+                myRef.child(roomName).child("hmdevices").child(deviceName).child("autoStatus").setValue(isChecked);
 
             }
         });
@@ -229,7 +229,7 @@ public class AirFragment extends Fragment {
                     String mode = AirFragment.this.getSelectedColor(selectedRadioButton);
 
                     // Send the color to Firebase
-                    myRef.child(roomName).child("devices").child(deviceName).child("mode").setValue(mode);
+                    myRef.child(roomName).child("hmdevices").child(deviceName).child("mode").setValue(mode);
                     Log.d("color choice", mode);
                     // Uncheck all other radio buttons in the group
                     AirFragment.this.clearRadioGroupSelection(group, selectedRadioButton);

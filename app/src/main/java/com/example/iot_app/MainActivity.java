@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("MyApp", MODE_PRIVATE);
         String json = prefs.getString("rooms", "[]");
 
-        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        viewModel.jsonToRooms(json);
+/*        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        viewModel.jsonToRooms(json);*/
 //        viewModel.jsonToRoomsArea(json1);
     }
     public String getGusername() {
@@ -87,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         SharedPreferences prefs = getSharedPreferences("MyApp", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        String json = viewModel.roomsToJson();
+        /*SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        String json = viewModel.roomsToJson();*/
 //        String json1 = viewModel.roomsAreaToJson();
 
-        editor.putString("rooms", json);
+//        editor.putString("rooms", json);
 //        editor.putString("devices", json1);
         editor.apply();
     }

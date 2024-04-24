@@ -43,7 +43,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         if (room == null){
             return ;
         }
-        holder.imageAvatar.setImageResource(room.getResourceId());
+//        holder.imageAvatar.setImageResource(room.getResourceId());
         holder.txtRoom.setText(room.getRoom());
 
         String deviceText = room.getDeviceCount() + " device(s)";

@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SharedViewModel extends ViewModel {
+/*public class SharedViewModel extends ViewModel {
 
 
     private final MutableLiveData<ArrayList<Room>> rooms = new MutableLiveData<>(new ArrayList<>());
@@ -48,5 +48,5 @@ public class SharedViewModel extends ViewModel {
         ArrayList<Room> roomList = gson.fromJson(json, type);
         rooms.setValue(roomList);
     }
-}
+}*/
 

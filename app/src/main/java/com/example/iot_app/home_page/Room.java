@@ -3,6 +3,7 @@ package com.example.iot_app.home_page;
 import com.example.iot_app.device.Device;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Room {
     // This is a public constructor for Room.
@@ -16,15 +17,30 @@ public class Room {
 
     private ArrayList<Device> devices;
 
+
+
+    private HashMap<String, Device> hmdevices;
+
     public Room() {
 
     }
-    public Room(String temp, String hum, String gas, ArrayList<Device> devices) {
+    public Room(int resourceId, String room, String device, String temp, String hum, String gas, HashMap<String, Device> hmdevices) {
+        this.resourceId = resourceId;
+        this.room = room;
+        this.device = device;
         this.temp = temp;
         this.hum = hum;
         this.gas = gas;
-        this.devices = devices;
+        this.hmdevices = hmdevices;
     }
+    /*public Room(int resourceId, String room, String device, String temp, String hum, String gas, ArrayList<Device> devices) {
+        this.resourceId = resourceId;
+        this.room = room;
+        this.device = device;
+        this.temp = temp;
+        this.hum = hum;
+        this.gas = gas;
+    }*/
     public Room(int resourceId, String room, String device) {
         this.resourceId = resourceId;
         this.room = room;
@@ -86,6 +102,13 @@ public class Room {
     }
     public void setDevices(ArrayList<Device> devices) {
         this.devices = devices;
+    }
+    public HashMap<String, Device> getHmdevices() {
+        return this.hmdevices;
+    }
+
+    public void setHmdevices(final HashMap<String, Device> hmdevices) {
+        this.hmdevices = hmdevices;
     }
 
     public int getDeviceCount() {

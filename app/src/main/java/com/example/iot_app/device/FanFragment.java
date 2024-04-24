@@ -72,14 +72,14 @@ public class FanFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");
-        DatabaseReference switchStatus = myRef.child(roomName).child("devices").child(deviceName).child("swithStatus");
-        DatabaseReference intensityRef = myRef.child(roomName).child("devices").child(deviceName).child("intensity");
-        DatabaseReference modeRef = myRef.child(roomName).child("devices").child(deviceName).child("detail");
+        DatabaseReference switchStatus = myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus");
+        DatabaseReference intensityRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("intensity");
+        DatabaseReference modeRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("detail");
 
         switchFan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                myRef.child(roomName).child("devices").child(deviceName).child("swithStatus").setValue(isChecked);
+                myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus").setValue(isChecked);
 
             }
         });

@@ -35,9 +35,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public DeviceAdapter(ArrayList<Device> mListDevice) {
         this.mListDevice = mListDevice;
     }
-   public void setDevices(ArrayList<Device> devices) {
-       this.mListDevice = devices;
-   }
+//   public void setDevices(ArrayList<Device> devices) {
+//       this.mListDevice = devices;
+//   }
 
     @NonNull
     @Override
@@ -55,8 +55,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");
-        DatabaseReference switchStatus = myRef.child(device.getNameRoom()).child("devices").child(device.getDevice()).child("swithStatus");
-        DatabaseReference detailRef = myRef.child(device.getNameRoom()).child("devices").child(device.getDevice()).child("detail");
+        DatabaseReference switchStatus = myRef.child(device.getNameRoom()).child("hmdevices").child(device.getDevice()).child("swithStatus");
+        DatabaseReference detailRef = myRef.child(device.getNameRoom()).child("hmdevices").child(device.getDevice()).child("detail");
 
         switchStatus.addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,8 +147,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                         }
                     }
                     device.setIdDevice(imageResource);
-                    myRef.child(device.getNameRoom()).child("devices").child(device.getDevice()).child("swithStatus").setValue(device.isSwithStatus());
-                    myRef.child(device.getNameRoom()).child("devices").child(device.getDevice()).child("idDevice").setValue(imageResource);
+                    myRef.child(device.getNameRoom()).child("hmdevices").child(device.getDevice()).child("swithStatus").setValue(device.isSwithStatus());
+                    myRef.child(device.getNameRoom()).child("hmdevices").child(device.getDevice()).child("idDevice").setValue(imageResource);
                     holder.imageDevice.setImageResource(imageResource);  // Update the image view directly
                 }
             }
@@ -194,7 +194,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                         public void onClick(DialogInterface dialog, int which) {
                             if (currentPosition != RecyclerView.NO_POSITION) {
                                 mListDevice.remove(currentPosition);
-                                myRef.child(device.getNameRoom()).child("devices").child(device.getDevice()).removeValue();
+                                myRef.child(device.getNameRoom()).child("hmdevices").child(device.getDevice()).removeValue();
                                 notifyDataSetChanged();
                             }
                         }
@@ -215,6 +215,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         }
         return 0;
     }
+
+    public void addDevice(Device device) {
+        this.mListDevice.add(device);
+        notifyItemInserted(mListDevice.size() - 1);
+    }
+
     public class DeviceViewholder extends RecyclerView.ViewHolder{
 
         private ImageView imageDevice;

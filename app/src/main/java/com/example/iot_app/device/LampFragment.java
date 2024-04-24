@@ -68,9 +68,9 @@ public class LampFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");
-        DatabaseReference switchStatus = myRef.child(roomName).child("devices").child(deviceName).child("swithStatus");
-        DatabaseReference detailRef = myRef.child(roomName).child("devices").child(deviceName).child("detail");
-        DatabaseReference intensityRef = myRef.child(roomName).child("devices").child(deviceName).child("intensity");
+        DatabaseReference switchStatus = myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus");
+        DatabaseReference detailRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("detail");
+        DatabaseReference intensityRef = myRef.child(roomName).child("hmdevices").child(deviceName).child("intensity");
         switchStatus.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -113,7 +113,7 @@ public class LampFragment extends Fragment {
         swLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                myRef.child(roomName).child("devices").child(deviceName).child("swithStatus").setValue(isChecked);
+                myRef.child(roomName).child("hmdevices").child(deviceName).child("swithStatus").setValue(isChecked);
 
             }
         });
@@ -136,7 +136,7 @@ public class LampFragment extends Fragment {
                     String color = LampFragment.this.getSelectedColor(selectedRadioButton);
 
                     // Send the color to Firebase
-                    myRef.child(roomName).child("devices").child(deviceName).child("detail").setValue(color);
+                    myRef.child(roomName).child("hmdevices").child(deviceName).child("detail").setValue(color);
                     Log.d("color choice", color);
                     // Uncheck all other radio buttons in the group
                     LampFragment.this.clearRadioGroupSelection(group, selectedRadioButton);
@@ -169,7 +169,7 @@ public class LampFragment extends Fragment {
 
                 // Send the color to Firebase
                 Log.d("color", color);
-                myRef.child(roomName).child("devices").child(deviceName).child("detail").setValue(color);
+                myRef.child(roomName).child("hmdevices").child(deviceName).child("detail").setValue(color);
             }
         });
 
