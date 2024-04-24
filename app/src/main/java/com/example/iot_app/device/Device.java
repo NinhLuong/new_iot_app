@@ -12,6 +12,9 @@ public class Device {
     private String nameRoom;
     private boolean swithStatus, autoStatus;
 
+    public Device() {
+    }
+
 
 // Fan device
 // Lamp device

@@ -56,6 +56,7 @@ import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,12 +65,8 @@ import cz.msebera.android.httpclient.Header;
 public class HomeFragment extends Fragment {
 
     private RecyclerView rcvData;
-    // A private variable for RecyclerView, which lets you display data in a scrolling list.
     private RoomAdapter roomAdapter;
-
-    // A private variable for RoomAdapter, which binds data to views that are displayed within a RecyclerView.
-    private List<Room> listRoom;
-    // A private variable for a list of Room objects.
+    private ArrayList<Room> listRoom;
 
     private MainActivity mainActivity;
 
@@ -107,7 +104,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         Intent intent = new Intent(getActivity(), StatusService.class);
@@ -167,58 +163,37 @@ public class HomeFragment extends Fragment {
             }
         });*/
 
-
         userName = view.findViewById(R.id.userName);
         rcvData = view.findViewById(R.id.rcv_data);
 
         userName.setText("Hi");
-        // Find a view that was identified by the 'rcv_data' id attribute in XML layout file and assign it to 'rcvData'.
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         rcvData.setLayoutManager(gridLayoutManager);
-        // Set 'rcvData' to use a linear layout manager (which arranges its children in a single column).
-        //    Create a new DividerItemDecoration with current context and vertical orientation.
 
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-//        viewModel.loadData(getContext());
-        // Get an instance of SharedViewModel associated with this activity.
-
-        // Observe changes to list of rooms in SharedViewModel.
-        // The second parameter is an observer that gets notified when list of rooms changes.
-        viewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<List<Room>>() {
-            // This method is called when list of rooms changes.
+        viewModel.getRooms().observe(getViewLifecycleOwner(), new Observer<ArrayList<Room>>() {
             @Override
-            public void onChanged(List<Room> rooms) {
+            public void onChanged(ArrayList<Room> rooms) {
                 roomAdapter.setRooms(rooms);
-                // Update rooms in 'roomAdapter'.
                 roomAdapter.notifyDataSetChanged();
-                // Notify 'roomAdapter' that underlying data has changed and it should refresh itself.
             }
         });
 
-        // Find a view that was identified by 'btnAddRoom' id attribute in XML layout file and assign it to 'btnAddRoom'.
         FloatingActionButton btnAddRoom = view.findViewById(R.id.btnAddRoom);
-        // Set an OnClickListener on 'btnAddRoom'. This listener gets notified when 'btnAddRoom' is clicked or tapped.
         btnAddRoom.setOnClickListener(new View.OnClickListener() {
-            // This method is called when 'btnAddRoom' is clicked or tapped.
             @Override
             public void onClick(View v) {
-                // Create a new dialog instance with current context.
                 Dialog dialog = new Dialog(getContext());
-                // Set the content view of this dialog. The layout resource is 'add_room_layout'.
                 dialog.setContentView(R.layout.add_area_layout);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
-                // Set the background of this dialog window using a drawable resource.
 
                 EditText edtNameRoom = dialog.findViewById(R.id.edtNameArea);
-                /*EditText edtLati= dialog.findViewById(R.id.edtLati);
-                EditText edtLongi= dialog.findViewById(R.id.edtLongi);*/
+
+
 
                 Button btnAdd = dialog.findViewById(R.id.btnAddArea);
-
-// Set an OnClickListener on 'btnAdd'. This listener gets notified when 'btnAdd' is clicked or tapped.
                 btnAdd.setOnClickListener(new View.OnClickListener() {
-                    // This method is called when 'btnAdd' is clicked or tapped.
                     @Override
                     public void onClick(View view) {
 
@@ -228,17 +203,13 @@ public class HomeFragment extends Fragment {
                             Log.d("latitude firebase", latitude);
                             Log.d("longitude firebase", longitude);
 
-                            //Assign the text in 'edtNameRoom' to 'name'.
                             Room newRoom = new Room(R.drawable.cold_storage, name , "0 device");
-                            // Create a new Room object with default image, name from 'edtNameRoom', and "0 device".
                             myRef.child(name).child("Temp").setValue("null");
                             myRef.child(name).child("Hum").setValue("null");
-                            myRef.child(name).child("Gas").setValue("null");
+                            myRef.child(name).child("Gas").setValue("false");
 
 
                             viewModel.addRoom(newRoom);
-                            // Add the new room to SharedViewModel.
-//                            viewModel.saveData(getContext());
                             dialog.dismiss();
                         }
                         else {
@@ -252,11 +223,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Create a new RoomAdapter with list of rooms and assign it to 'roomAdapter'.
         roomAdapter = new RoomAdapter(listRoom);
-        // Set the adapter for 'rcvData' to be 'roomAdapter'.
         rcvData.setAdapter(roomAdapter);
-
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
 
         if (ContextCompat.checkSelfPermission(fragmentContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -266,7 +234,6 @@ public class HomeFragment extends Fragment {
         }
 
         if (ContextCompat.checkSelfPermission(fragmentContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
         } else {
             startLocationUpdates();

@@ -47,14 +47,9 @@ import java.util.List;
 
 public class DetailFragment extends Fragment {
     private RecyclerView rcvRoom;
-    // A private variable for RecyclerView, which lets you display data in a scrolling list.
     private DeviceAdapter deviceAdapter;
-    // A private variable for DeviceAdapter, which binds data to views that are displayed within a RecyclerView.
     private SharedViewModel viewModel;
-    // A private variable for SharedViewModel,
-    // which stores and manages UI-related data in a lifecycle conscious way.
-    private List<Device> listDevice;
-    // A private variable for a Room object.
+    private ArrayList<Device> listDevice;
     private String device_type;
     private TextView txtTemp, txtHum;
 //    private Device newDevice;
@@ -88,14 +83,10 @@ public class DetailFragment extends Fragment {
             public void onClick(View view) {
                 String newName = edtNameRoom.getText().toString();
                 if (!newName.isEmpty()) {
-                    // Update room name in SharedViewModel
                     Room room = viewModel.getRooms().getValue().get(index);
                     room.setRoom(newName);
                     viewModel.getRooms().getValue().set(index, room);
-
-                    // Update toolbar title
                     ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(newName);
-
                     dialog.dismiss();
                 } else {
                     Toast.makeText(getContext(), "Hãy nhập tên phòng mới!", Toast.LENGTH_LONG).show();
@@ -110,39 +101,25 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-// Find a view that was identified by 'rcv_detail' id attribute in XML layout file and assign it to 'rcvRoom'.
         rcvRoom = view.findViewById(R.id.rcv_detail);
-        // Set 'rcvRoom' to use a linear layout manager (which arranges its children in a single column).
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         rcvRoom.setLayoutManager(gridLayoutManager);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        // Find a view that was identified by the 'toolbar' id attribute in XML layout file and assign it to 'toolbar'.
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        // Set 'toolbar' to act as the ActionBar for this Activity window.
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Enable the Up button in the action bar.
         String roomName = getArguments().getString("roomName");
-        // Retrieve the value associated with the key "roomName" from the arguments supplied
-        // when this fragment was instantiated and assign it to 'roomName'.
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(roomName);
-
-// Set the title text for this activity's ActionBar represented by 'toolbar'.
         int indexArea = getArguments().getInt("index");
-        // Retrieve the value associated with the key "index" from the arguments supplied
-        // when this fragment was instantiated and assign it to 'index'.
 
         txtTemp = view.findViewById(R.id.tempRoom);
         txtHum = view.findViewById(R.id.humRoom);
 
         DatabaseReference humiRef = myRef.child(roomName).child("Hum");
         DatabaseReference tempRef = myRef.child(roomName).child("Temp");
-
-
         humiRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -199,30 +176,17 @@ public class DetailFragment extends Fragment {
         });*/
 
         listDevice = viewModel.getRooms().getValue().get(indexArea).getDevices();
-        // Get list of devices from room at position 'index' in SharedViewModel and assign it to 'devices'.
 
         if (listDevice == null) {
             listDevice = new ArrayList<>();
-            // Initialize 'devices' as an empty ArrayList.
             viewModel.getRooms().getValue().get(indexArea).setDevices((ArrayList<Device>) listDevice);
-            // Set list of devices in room at position 'index' in SharedViewModel to be 'devices'.
         }
-
-        // Find a view that was identified by 'btnAddDevice' id attribute in XML layout file and assign it to 'btnAddDevice'.
         FloatingActionButton btnAddDevice = view.findViewById(R.id.btnAddDevice);
-        // Set an OnClickListener on 'btnAddDevice'. This listener gets notified when 'btnAddDevice' is clicked or tapped.
-        // This method is called when 'btnAddDevice' is clicked or tapped.
-
-
         btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(getContext());
-
-
-                // Create a new dialog instance with current context.
                 dialog.setContentView(R.layout.add_room_layout);
-                // Set the content view of this dialog. The layout resource is 'add_device_layout'.
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
 
                 Spinner spinnerDeviceType = dialog.findViewById(R.id.spnCategory);
@@ -232,13 +196,9 @@ public class DetailFragment extends Fragment {
                 spinnerDeviceType.setAdapter(adapter);
                 spinnerDeviceType.setSelection(0);
 
-// Set the background of this dialog window using a drawable resource.
                 EditText edtNameRoom = dialog.findViewById(R.id.etNameRoom);
-                // Find a view that was identified by 'edtNameDevice' id attribute in XML layout file and assign it to 'edtNameRoom'.
-//                EditText edtInfo = dialog.findViewById(R.id.edtInfo);
-                // Find a view that was identified by 'edtInfo' id attribute in XML layout file and assign it to 'edtInfo'.
+
                 Button btnAddDevice = dialog.findViewById(R.id.btnAddRoomArea);
-                // Find a view that was identified by 'btnAddDevice' id attribute in XML layout file and assign it to 'btnAddDevice'.
                 final String[] deviceTypeContainer = new String[1];
                 btnAddDevice.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -246,15 +206,8 @@ public class DetailFragment extends Fragment {
                         String name_device = "" ;
                         device_type = spinnerDeviceType.getSelectedItem().toString();
 
-                        Log.d("device_type: ", device_type);
-
-//                        String info = "";
-                        // Initialize two string variables 'name_device' and 'info'.
-                        if(!edtNameRoom.getText().toString().equals("")/* && !edtInfo.getText().toString().equals("")*/){
-                            // If the text in 'edtNameRoom' and 'edtInfo' are not empty
-                            // Assign the text in 'edtNameRoom' to 'name_device', the text in 'edtInfo' to 'info'.
+                        if(!edtNameRoom.getText().toString().equals("")){
                             name_device = edtNameRoom.getText().toString();
-//                            info = edtInfo.getText().toString();
                             Device newDevice;
                             switch (device_type){
                                 case "Fan":
@@ -334,9 +287,7 @@ public class DetailFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });*/
-
-
-        deviceAdapter = new DeviceAdapter(listDevice );
+        deviceAdapter = new DeviceAdapter(listDevice);
         rcvRoom.setAdapter(deviceAdapter);
 
         return view;

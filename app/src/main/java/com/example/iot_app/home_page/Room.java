@@ -12,18 +12,26 @@ public class Room {
     // A private variable for a list of Device objects.
     private String temp;
     private String hum;
-
+    private String gas;
 
     private ArrayList<Device> devices;
 
-    // This is a public constructor for Room.
-    // It initializes a new Room object with resource ID, room name, and device name.
+    public Room() {
+
+    }
+    public Room(String temp, String hum, String gas, ArrayList<Device> devices) {
+        this.temp = temp;
+        this.hum = hum;
+        this.gas = gas;
+        this.devices = devices;
+    }
     public Room(int resourceId, String room, String device) {
         this.resourceId = resourceId;
         this.room = room;
         this.device = device;
         this.devices = new ArrayList<>();
     }
+
     // create getter setter
     public int getResourceId() {
         return resourceId;
@@ -65,13 +73,26 @@ public class Room {
         this.hum = hum;
     }
 
+    public String getGas() {
+        return this.gas;
+    }
+
+    public void setGas(final String gas) {
+        this.gas = gas;
+    }
+
     public ArrayList<Device> getDevices() {
         return devices;
     }
     public void setDevices(ArrayList<Device> devices) {
         this.devices = devices;
     }
+
     public int getDeviceCount() {
-        return devices.size();
+        if (devices == null) {
+            return 0;
+        } else {
+            return devices.size();
+        }
     }
 }
