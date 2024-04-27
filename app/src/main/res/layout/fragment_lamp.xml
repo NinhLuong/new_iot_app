@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/bg_weather"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
@@ -46,8 +46,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            android:text="Power"
-            android:textSize="18sp"
+            android:text="Nút bật/tắt đèn"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Switch
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Intensity"
+                    android:text="Độ sáng"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -165,14 +165,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Color"
-                            android:textSize="20dp"
+                            android:text="Màu sắc"
+                            android:textSize="18dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pick available colors"
+                            android:text="Chọn màu sắc cho đèn"
                             android:textColor="#BDBDBD"
                             android:textSize="16dp" />
                     </LinearLayout>

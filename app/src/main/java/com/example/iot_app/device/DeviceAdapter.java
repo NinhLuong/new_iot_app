@@ -35,9 +35,10 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public DeviceAdapter(ArrayList<Device> mListDevice) {
         this.mListDevice = mListDevice;
     }
-//   public void setDevices(ArrayList<Device> devices) {
-//       this.mListDevice = devices;
-//   }
+
+   public void setDevices(ArrayList<Device> devices) {
+       this.mListDevice = devices;
+   }
 
     @NonNull
     @Override
@@ -222,7 +223,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     }
 
     public class DeviceViewholder extends RecyclerView.ViewHolder{
-
         private ImageView imageDevice;
         private TextView txtName;
         private TextView txtDetail;

@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/bg_weather"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
@@ -39,8 +39,8 @@
             android:layout_marginTop="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="Power"
-            android:textSize="18sp"
+            android:text="Nút bật/tắt quạt"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Switch
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Intensity"
+                    android:text="Tốc độ quay"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -140,8 +140,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mode"
-                android:textSize="22dp"
+                android:text="Chế độ"
+                android:textSize="18dp"
                 android:textStyle="bold"/>
 
             <LinearLayout
@@ -160,7 +160,7 @@
                         android:background="@drawable/custom_radio_selector"
                         android:button="@color/color_temp"
                         android:gravity="center"
-                        android:text="Low"
+                        android:text="Chậm"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:layout_width="100dp"
@@ -172,7 +172,7 @@
                         android:textColor="@drawable/custom_radio_text_color_selector"
                         android:button="@color/color_temp"
                         android:gravity="center"
-                        android:text="Medium"
+                        android:text="Vừa"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:layout_width="100dp"
@@ -188,7 +188,7 @@
                         android:background="@drawable/custom_radio_selector"
                         android:button="@color/color_temp"
                         android:gravity="center"
-                        android:text="High" />
+                        android:text="Nhanh" />
                 </RadioGroup>
             </LinearLayout>
 

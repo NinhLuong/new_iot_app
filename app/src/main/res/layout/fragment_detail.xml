@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#8B7FDF" />
+        android:background="@color/bg_weather" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -82,9 +82,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Temperature"
+                    android:text="Nhiệt độ"
                     android:textColor="@color/white"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -152,9 +152,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Humidity"
+                    android:text="Độ ẩm"
                     android:textColor="@color/white"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

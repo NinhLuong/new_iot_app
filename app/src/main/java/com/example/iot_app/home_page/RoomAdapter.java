@@ -2,6 +2,7 @@ package com.example.iot_app.home_page;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,23 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         if (room == null){
             return ;
         }
-//        holder.imageAvatar.setImageResource(room.getResourceId());
         holder.txtRoom.setText(room.getRoom());
+        Log.d("Name room", room.getRoom());
+        Log.d("Compare", String.valueOf(room.getRoom() == "Phòng khách"));
 
-        String deviceText = room.getDeviceCount() + " device(s)";
+        if(room.getRoom().equals( "Phòng khách")){
+            holder.imageAvatar.setImageResource(R.drawable.living_room);
+        } else if(room.getRoom().equals("Phòng ngủ") ){
+            holder.imageAvatar.setImageResource(R.drawable.bedroom);
+        } else if(room.getRoom().equals("Phòng bếp") ){
+            holder.imageAvatar.setImageResource(R.drawable.kitchen_room);
+        } else if(room.getRoom().equals("Phòng tắm")){
+            holder.imageAvatar.setImageResource(R.drawable.bathroom);
+        } else{
+            holder.imageAvatar.setImageResource(R.drawable.cold_storage);
+        }
+
+        String deviceText = room.getDeviceCount() + " Thiết bị";
         holder.txtDevice.setText(deviceText);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("rooms");

@@ -6,18 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Room {
-    // This is a public constructor for Room.
     private int resourceId;
     private String room;
     private String device;
-    // A private variable for a list of Device objects.
     private String temp;
     private String hum;
     private String gas;
-
     private ArrayList<Device> devices;
-
-
 
     private HashMap<String, Device> hmdevices;
 
@@ -33,14 +28,6 @@ public class Room {
         this.gas = gas;
         this.hmdevices = hmdevices;
     }
-    /*public Room(int resourceId, String room, String device, String temp, String hum, String gas, ArrayList<Device> devices) {
-        this.resourceId = resourceId;
-        this.room = room;
-        this.device = device;
-        this.temp = temp;
-        this.hum = hum;
-        this.gas = gas;
-    }*/
     public Room(int resourceId, String room, String device) {
         this.resourceId = resourceId;
         this.room = room;
@@ -112,10 +99,10 @@ public class Room {
     }
 
     public int getDeviceCount() {
-        if (devices == null) {
+        if (hmdevices == null) {
             return 0;
         } else {
-            return devices.size();
+            return hmdevices.size();
         }
     }
 }

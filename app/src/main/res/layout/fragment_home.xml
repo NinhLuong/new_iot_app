@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="7dp"
                     android:text="15 Otober 2023"
-                    android:textColor="#D1CCF2"
+                    android:textColor="#FCE09B"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Temperature"
+                            android:text="Nhiệt độ"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -150,7 +150,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Humidity"
+                            android:text="Độ ẩm"
                             android:textColor="@color/white"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:text="ĐH SPKT TP.HCM"
-                    android:textColor="#D1CCF2"
+                    android:textColor="#FCE09B"
                     android:textSize="12dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -192,6 +192,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="280dp"
         android:layout_marginEnd="30dp"
+        android:background="@drawable/recyclerview_bacground"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -200,6 +201,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_data"
+
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

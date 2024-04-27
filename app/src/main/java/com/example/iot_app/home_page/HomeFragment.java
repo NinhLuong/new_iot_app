@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcvData;
     private RoomAdapter roomAdapter;
     private ArrayList<Room> listRoom;
-    private ArrayList<Device>  listDevice;
+//    private ArrayList<Device>  listDevice;
     private HashMap<String, Device> hmDevice;
 
     private MainActivity mainActivity;
@@ -110,6 +110,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Log.d("Room", String.valueOf(R.drawable.cold_storage));
+        Log.d("Living Room", String.valueOf(R.drawable.living_room));
+        Log.d("Bath Room", String.valueOf(R.drawable.bathroom));
+        Log.d("Bed Room", String.valueOf(R.drawable.bedroom));
+        Log.d("Kitchen Room", String.valueOf(R.drawable.kitchen_room));
 
         Intent intent = new Intent(getActivity(), StatusService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -201,30 +207,15 @@ public class HomeFragment extends Fragment {
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-
                         if(!edtNameRoom.getText().toString().equals("") ){
                             name = edtNameRoom.getText().toString();
                             Log.d("latitude firebase", latitude);
                             Log.d("longitude firebase", longitude);
 
-                            Room newRoom = new Room(R.drawable.cold_storage, name , "0 device");
-                            /*myRef.child(name).child("Temp").setValue("null");
-                            myRef.child(name).child("Hum").setValue("null");
-                            myRef.child(name).child("Gas").setValue("null");*/
-//                            Device fan1 = new Device(R.drawable.ic_fan_off, "fan 1", "Medium", false,100,"Fan", name);
-//                            Device fan2 = new Device(R.drawable.ic_fan_off, "fan 2", "Medium", false,100,"Fan", name);
+//                            Room newRoom = new Room(R.drawable.cold_storage, name , "0 Thiết bị");
                             hmDevice = new HashMap<>();
-//                            listDevice.put("fan 1", fan1);
-//                            listDevice.put("fan 2", fan2);
-                            listDevice = new ArrayList<>();
-                            Room newRoom1 = new Room(R.drawable.cold_storage, name , "0 device", "null", "null","null", hmDevice);
-
+                            Room newRoom1 = new Room(R.drawable.cold_storage, name , "0 Thiết bị", "null", "null","null", hmDevice);
                             myRef.child(name).setValue(newRoom1);
-                            /*myRef.child(name).child("devices").child(fan1.getDevice()).setValue(fan1);
-                            myRef.child(name).child("devices").child(fan2.getDevice()).setValue(fan2);*/
-
-
 //                            viewModel.addRoom(newRoom);
                             dialog.dismiss();
                         }
@@ -264,6 +255,7 @@ public class HomeFragment extends Fragment {
 
         roomAdapter.notifyDataSetChanged();
         rcvData.setAdapter(roomAdapter);
+
         locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
 
         if (ContextCompat.checkSelfPermission(fragmentContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

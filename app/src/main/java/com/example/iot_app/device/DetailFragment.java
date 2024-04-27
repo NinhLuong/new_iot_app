@@ -250,29 +250,14 @@ public class DetailFragment extends Fragment {
                                 }
                             });
 
-//
-                            // Create a new Device object with default image, name from 'edtNameRoom', and info from 'edtInfo'.
-//                            viewModel.addRoomArea(newDevice);
-//                            viewModel.addDeviceToRoom(indexArea, newDevice);
-
-//                            myRef.child(roomName).child("devices").child(name_device).setValue(newDevice);
-
-                            /*myRef.child(roomName).child("devices").child(name_device).child("Switch").setValue("false");
-                            myRef.child(roomName).child("devices").child(name_device).child("Detail").setValue("");*/
-//                            deviceAdapter = new DeviceAdapter(listDevice, device_type );
-//                            rcvRoom.setAdapter(deviceAdapter);
-//                            viewModel.saveData(getContext());
-                            // Create a new Device object with default image, name from 'edtNameRoom', and info from 'edtInfo'.
                             deviceAdapter.notifyDataSetChanged();
                             dialog.dismiss();
                         }
                         else {
                             Toast.makeText(getContext(), "Hãy nhập đầy đủ thông tin!", Toast.LENGTH_LONG).show();
                         }
-                        Log.d("finish: ", name_device);
                     }
                 });
-
                 dialog.show();
 
             }

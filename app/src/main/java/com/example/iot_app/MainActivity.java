@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             startService(intent);
         }
+
         username = getIntent().getStringExtra("username");
         gusername = username;
 

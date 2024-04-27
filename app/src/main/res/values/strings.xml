@@ -5,10 +5,10 @@
         <item>Fan</item>
     </string-array>
     <string name="app_name">Storage management</string>
-    <string name="action_home">Home</string>
+    <string name="action_home">Trang Chủ</string>
     <string name="enter_otp_here">Enter your OTP here</string>
-    <string name="action_web">Web</string>
-    <string name="action_account">Account</string>
+    <string name="action_web">Robot</string>
+    <string name="action_account">Tài Khoản</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">Loading…</string>

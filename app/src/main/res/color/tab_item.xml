@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item 
-        android:color="#FFFFFF"
+    <item
+        android:color="#10439F"
         android:state_selected="true"/>
-    <item android:color="#03A9F4"
+    <item android:color="#F6F1F1"
         android:state_selected="false"/>
 </selector>
