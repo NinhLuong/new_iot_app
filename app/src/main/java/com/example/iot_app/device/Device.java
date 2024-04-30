@@ -117,6 +117,21 @@ public class Device {
     public void setAutoStatus(final boolean autoStatus) {
         this.autoStatus = autoStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "idDevice=" + idDevice +
+                ", intensity=" + intensity +
+                ", device='" + device + '\'' +
+                ", mode='" + mode + '\'' +
+                ", detail='" + detail + '\'' +
+                ", category='" + category + '\'' +
+                ", nameRoom='" + nameRoom + '\'' +
+                ", swithStatus=" + swithStatus +
+                ", autoStatus=" + autoStatus +
+                '}';
+    }
 }
 
 

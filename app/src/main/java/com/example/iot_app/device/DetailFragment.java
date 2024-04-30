@@ -178,10 +178,37 @@ public class DetailFragment extends Fragment {
         /*viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         listDevice = viewModel.getRooms().getValue().get(indexArea).getDevices();*/
 
-        if (listDevice == null) {
+        /*if (listDevice == null) {
             listDevice = new ArrayList<>();
 //            viewModel.getRooms().getValue().get(indexArea).setDevices((ArrayList<Device>) listDevice);
-        }
+        }*/
+
+        listDevice = new ArrayList<>();
+        myRef.child(roomName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listDevice.clear();
+                Room room = dataSnapshot.getValue(Room.class);
+                if (room != null) {
+                    HashMap<String, Device> hmdevices = room.getHmdevices();
+                    if (hmdevices == null) {
+                        hmdevices = new HashMap<>();
+                    }
+                    listDevice.addAll(hmdevices.values());
+                    DeviceAdapter deviceAdapter = new DeviceAdapter(listDevice);
+                    deviceAdapter.notifyDataSetChanged();
+                    // rest of your code
+                    rcvRoom.setAdapter(deviceAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+
         FloatingActionButton btnAddDevice = view.findViewById(R.id.btnAddDevice);
         btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,6 +265,7 @@ public class DetailFragment extends Fragment {
                                     room.getHmdevices().put(newDevice.getDevice(), newDevice);
 
                                     // Save the updated Room object back to Firebase
+//                                   listDevice.add(newDevice);
                                     myRef.child(roomName).setValue(room);
                                     deviceAdapter.addDevice(newDevice);
                                     deviceAdapter.notifyDataSetChanged();
@@ -250,8 +278,15 @@ public class DetailFragment extends Fragment {
                                 }
                             });
 
+//                            listDevice.add(newDevice);
+                            deviceAdapter = new DeviceAdapter(listDevice);
                             deviceAdapter.notifyDataSetChanged();
                             dialog.dismiss();
+
+                            // After adding the new Device, print all Device objects in listDevice
+                            for (Device device : listDevice) {
+                                Log.d("Device Info", device.toString());
+                            }
                         }
                         else {
                             Toast.makeText(getContext(), "Hãy nhập đầy đủ thông tin!", Toast.LENGTH_LONG).show();
@@ -260,29 +295,6 @@ public class DetailFragment extends Fragment {
                 });
                 dialog.show();
 
-            }
-        });
-        myRef.child(roomName).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Room room = dataSnapshot.getValue(Room.class);
-                if (room != null) {
-                    HashMap<String, Device> hmdevices = room.getHmdevices();
-                    if (hmdevices == null) {
-                        hmdevices = new HashMap<>();
-                    }
-                    DeviceAdapter deviceAdapter = new DeviceAdapter(new ArrayList<>(hmdevices.values()));
-                    deviceAdapter.notifyDataSetChanged();
-                    // rest of your code
-                    rcvRoom.setAdapter(deviceAdapter);
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle error
             }
         });
 

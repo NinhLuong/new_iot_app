@@ -202,7 +202,6 @@ public class HomeFragment extends Fragment {
                 EditText edtNameRoom = dialog.findViewById(R.id.edtNameArea);
 
 
-
                 Button btnAdd = dialog.findViewById(R.id.btnAddArea);
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
