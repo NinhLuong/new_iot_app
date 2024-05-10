@@ -119,8 +119,8 @@ public class DetailFragment extends Fragment {
         txtTemp = view.findViewById(R.id.tempRoom);
         txtHum = view.findViewById(R.id.humRoom);
 
-        DatabaseReference humiRef = myRef.child(roomName).child("Hum");
-        DatabaseReference tempRef = myRef.child(roomName).child("Temp");
+        DatabaseReference humiRef = myRef.child(roomName).child("hum");
+        DatabaseReference tempRef = myRef.child(roomName).child("temp");
         humiRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

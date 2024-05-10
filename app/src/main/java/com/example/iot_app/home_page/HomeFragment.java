@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
         });
 
         listRoom = new ArrayList<>();
-        myRef.child(name).addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listRoom.clear();

@@ -104,7 +104,6 @@ public class FanFragment extends Fragment {
                     }
                     imgFan.setImageResource(R.drawable.fan_off);
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
